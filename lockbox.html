@@ -1,0 +1,68 @@
+<html>
+
+<head>
+  <title>Javascript Functions</title>
+  <style type="text/css">
+    .spacer {
+      height: 2500px;
+    }
+    #box {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="spacer">
+    Scroll down (all the way down)
+  </div>
+  <label>The total number of clicks is: <span id="clickz">0</span></label>
+  <label>The button clicks are <span id="button_clicks"></span>.</label>
+
+  <p>
+    You see a box.
+    <a id="open-link" href="#">Open the box</a>
+  </p>
+
+  <p id="box">Surprise!<button>Close Box</button></p>
+
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <script type="text/javascript">
+    $('#open-link').on('click', function (e) {
+      e.preventDefault();
+      $("#box").show();
+    });
+
+
+    $("#box button").on("click", function(e) {
+      $("#box").hide();
+    });
+
+    var click_count = 0;
+    var button_click_count = 0;
+
+
+    $(document).on("click", function(e) {
+      click_count++;
+      $("#clickz").text(click_count);
+      $(document).trigger("new-click-count", click_count);
+    });
+
+    $(document).on("new-click-count", function(e) {
+      if(click_count % 5 === 0) {
+        alert("New High Score of "+click_count+" clicks!");
+      }
+    });
+
+    $("#box button").on("click", function(e) {
+      button_click_count++;
+      $("#button_clicks").text(button_click_count);
+      e.preventDefault();
+    });
+  
+
+  </script>
+
+</body>
+</html>
